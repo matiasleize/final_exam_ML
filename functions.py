@@ -56,21 +56,18 @@ def prediccion_pasos_adelante(model,vec_actual,pasos_adelante):
 
     return lista_valores
 
-def make_predictions(sequence, look_back, n_features, pasos_adelante, indice_inicial, proporcion):
+def make_predictions(sequence, look_back, n_features, raw_seq_window):
     # split into samples
-    X, y = split_sequence(sequence, look_back)
+    X_train, y_train = split_sequence(sequence, look_back)
     # Le damos la forma adecuada a los datos para entrar a la red recurrente
     # reshape from [samples, timesteps] into [samples, look_back, features]
-    X = X.reshape((X.shape[0], X.shape[1], n_features))
+    X_train = X_train.reshape((X_train.shape[0], X_train.shape[1], n_features))
 
-    # Indice de separacion entre train y test
-    indice_test = int(proporcion * X.shape[0])
 
-    X_train = X[:indice_test]
-    y_train = y[:indice_test]
-    X_test = X[indice_test:]
-    y_test = y[indice_test:]
+    X_test, y_test = split_sequence(raw_seq_window, look_back)
+    X_test = X_test.reshape((X_test.shape[0], X_test.shape[1], n_features))
 
+    tamano_ventana = len(raw_seq_window)
 
     # Definimos el modelo Secuencial
     model = Sequential()
@@ -84,12 +81,13 @@ def make_predictions(sequence, look_back, n_features, pasos_adelante, indice_ini
     history = model.fit(X_train, y_train, epochs=200, verbose=0,validation_data=(X_test, y_test))
 
     # Tomamos un valor inicial del test set
-    vec_actual = X_test[indice_inicial]
-    # Calculamos la prediccion del modelo
-    #pasos_adelante = len(y_test)-indice_inicial
-    predicciones_adelante = prediccion_pasos_adelante(model,vec_actual,pasos_adelante)
-    # Tomamos los valores esperados
-    valores_reales = y_test[indice_inicial:indice_inicial+pasos_adelante]
+    #vec_actual = X_test[indice_inicial]
+    vec_actual = X_train[-1] #CAMBIO IMPORTANTE PARA QUE LA PREDICION ESTÉ EN FASE
 
-    # time steps
+    # Calculamos la prediccion del modelo
+    predicciones_adelante = prediccion_pasos_adelante(model,vec_actual,tamano_ventana)
+    # Tomamos los valores esperados
+    valores_reales = raw_seq_window
+
     return y_train, y_test, predicciones_adelante,valores_reales    
+
