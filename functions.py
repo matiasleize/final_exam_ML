@@ -72,7 +72,14 @@ def make_predictions(sequence, look_back, n_features, raw_seq_window):
     # Definimos el modelo Secuencial
     model = Sequential()
     # Agregamos la capa Recurrente (Puede ser LSTM o RNN)
-    model.add(SimpleRNN(10, activation='tanh', input_shape=(look_back, n_features)))
+    #model.add(SimpleRNN(10, activation='tanh', input_shape=(look_back, n_features)))
+    
+    #Sandbox:
+    model.add(SimpleRNN(20, activation='tanh', input_shape=(look_back, n_features)))
+    #model.add(SimpleRNN(20, activation='relu', input_shape=(look_back, n_features)))
+    #model.add(LSTM(20, activation='tanh', input_shape=(look_back, n_features)))    
+
+
     # model.add(LSTM(20, activation='tanh', input_shape=(look_back, n_features)))
     # Agregamos la capa de salida (lee el hidden Space de la recurrente)
     model.add(Dense(1,activation='linear'))
@@ -83,6 +90,7 @@ def make_predictions(sequence, look_back, n_features, raw_seq_window):
     # Tomamos un valor inicial del test set
     indice_inicial = 0
     vec_actual = X_test[indice_inicial]
+    #vector_actual = X_test[-5]
     #vec_actual = X_train[-1] #CAMBIO IMPORTANTE PARA QUE LA PREDICION ESTÉ EN FASE
 
     # Calculamos la prediccion del modelo
