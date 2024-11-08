@@ -81,13 +81,14 @@ def make_predictions(sequence, look_back, n_features, raw_seq_window):
     history = model.fit(X_train, y_train, epochs=200, verbose=0,validation_data=(X_test, y_test))
 
     # Tomamos un valor inicial del test set
-    #vec_actual = X_test[indice_inicial]
-    vec_actual = X_train[-1] #CAMBIO IMPORTANTE PARA QUE LA PREDICION ESTÉ EN FASE
+    indice_inicial = 0
+    vec_actual = X_test[indice_inicial]
+    #vec_actual = X_train[-1] #CAMBIO IMPORTANTE PARA QUE LA PREDICION ESTÉ EN FASE
 
     # Calculamos la prediccion del modelo
     predicciones_adelante = prediccion_pasos_adelante(model,vec_actual,tamano_ventana)
     # Tomamos los valores esperados
     valores_reales = raw_seq_window
 
-    return y_train, y_test, predicciones_adelante,valores_reales    
+    return predicciones_adelante,valores_reales    
 
