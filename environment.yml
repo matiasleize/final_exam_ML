@@ -30,6 +30,8 @@ dependencies:
   - frozenlist=1.3.3=py39hb9d737c_0
   - gast=0.4.0=pyh9f0ad1d_0
   - giflib=5.2.1=h36c2ea0_2
+  - gitdb=4.0.9=pyhd8ed1ab_0
+  - gitpython=3.1.25=pyhd8ed1ab_0
   - google-auth=2.14.1=pyh1a96a4e_0
   - google-auth-oauthlib=0.4.6=pyhd8ed1ab_0
   - google-pasta=0.2.0=pyh8c360ce_0
@@ -85,6 +87,7 @@ dependencies:
   - openjpeg=2.5.0=h7d73246_1
   - openssl=1.1.1s=h166bdaf_0
   - opt_einsum=3.3.0=pyhd8ed1ab_1
+  - pandas=1.1.1=py37he6710b0_0
   - pillow=9.2.0=py39hf3a2cdf_3
   - pip=22.3.1=pyhd8ed1ab_0
   - protobuf=4.21.9=py39h5a03fae_0
