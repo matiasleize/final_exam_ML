@@ -1,3 +1,9 @@
+
+import numpy as np
+from numpy.linalg import inv
+import pandas as pd
+
+
 def read_data_pantheon_plus(file_pantheon_plus,file_pantheon_plus_cov):
 
     '''
@@ -24,9 +30,12 @@ def read_data_pantheon_plus(file_pantheon_plus,file_pantheon_plus_cov):
 
     return zhd, zhel, Cinv, mb
 
-# import libraries:
-import sys, os
-path_git = git.Repo('.', search_parent_directories=True).working_tree_dir
-os.path.join(path_git, 'source', 'covidProcesado.csv')
-ds_SN_plus = read_data_pantheon_plus('Pantheon+SH0ES.dat',
-                        'covmat_pantheon_plus_only.npz')
+#%%
+if __name__ == '__main__':
+
+    import git
+    import sys, os
+    path_git = git.Repo('.', search_parent_directories=True).working_tree_dir
+    os.chdir(os.path.join(path_git, 'source','PPS'))
+    ds_SN_plus = read_data_pantheon_plus('Pantheon+SH0ES.dat',
+                            'covmat_pantheon_plus_only.npz')
