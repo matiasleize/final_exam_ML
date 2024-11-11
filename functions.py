@@ -1,4 +1,5 @@
 import numpy as np
+import copy
 
 # Imports de Keras
 from keras.models import Sequential
@@ -81,6 +82,8 @@ def make_predictions(sequence, look_back, n_features, raw_seq_window, model = No
         model.add(Dense(1,activation='linear'))
         # Compilamos el modelo
         model.compile(optimizer='adam', loss='mse')
+    else:
+        model = copy.deepcopy(model)
 
     if not fit_kwrds:
         fit_kwrds = {'epochs' : 200,
