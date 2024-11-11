@@ -4,4 +4,4 @@
 
 **Autores:** Tomas Cicchini, Matías Leizerovich, Candela Szischik y María Sol Vidal
 
-Aplicación de redes birrecurrentes para la predicción de un intervalo dentro de una señal temporal.
+Aplicación de redes recurrentes para la predicción de un intervalo dentro de una señal temporal.
