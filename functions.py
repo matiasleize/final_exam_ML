@@ -56,7 +56,7 @@ def prediccion_pasos_adelante(model,vec_actual,pasos_adelante):
 
     return lista_valores
 
-def make_predictions(sequence, look_back, n_features, raw_seq_window):
+def make_predictions(sequence, look_back, n_features, raw_seq_window, model = None, **fit_kwrds):
     # split into samples
     X_train, y_train = split_sequence(sequence, look_back)
     # Le damos la forma adecuada a los datos para entrar a la red recurrente
@@ -69,23 +69,24 @@ def make_predictions(sequence, look_back, n_features, raw_seq_window):
 
     tamano_ventana = len(raw_seq_window)
 
+    if not model:
     # Definimos el modelo Secuencial
-    model = Sequential()
-    # Agregamos la capa Recurrente (Puede ser LSTM o RNN)
-    #model.add(SimpleRNN(10, activation='tanh', input_shape=(look_back, n_features)))
-    
-    #Sandbox:
-    model.add(SimpleRNN(20, activation='tanh', input_shape=(look_back, n_features)))
-    #model.add(SimpleRNN(20, activation='relu', input_shape=(look_back, n_features)))
-    #model.add(LSTM(20, activation='tanh', input_shape=(look_back, n_features)))    
+        model = Sequential()
+        # Agregamos la capa Recurrente (Puede ser LSTM o RNN)
+        
+        model.add(SimpleRNN(20, activation='tanh', input_shape=(look_back, n_features)))
+        #model.add(SimpleRNN(20, activation='relu', input_shape=(look_back, n_features)))
+        #model.add(LSTM(20, activation='tanh', input_shape=(look_back, n_features)))    
+        # Agregamos la capa de salida (lee el hidden Space de la recurrente)
+        model.add(Dense(1,activation='linear'))
+        # Compilamos el modelo
+        model.compile(optimizer='adam', loss='mse')
 
+    if not fit_kwrds:
+        fit_kwrds = {'epochs' : 200,
+                     'verbose' : 0}    
 
-    # model.add(LSTM(20, activation='tanh', input_shape=(look_back, n_features)))
-    # Agregamos la capa de salida (lee el hidden Space de la recurrente)
-    model.add(Dense(1,activation='linear'))
-    # Compilamos el modelo
-    model.compile(optimizer='adam', loss='mse')
-    history = model.fit(X_train, y_train, epochs=200, verbose=0,validation_data=(X_test, y_test))
+    history = model.fit(X_train, y_train, validation_data=(X_test, y_test), **fit_kwrds)
 
     # Tomamos un valor inicial del test set
     indice_inicial = 0
