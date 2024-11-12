@@ -2,6 +2,6 @@
 
 **Cátedra:** Gabriel Mindlin
 
-**Autores:** Tomas Cicchini, Matías Leizerovich, Candela Szischik y María Sol Vidal
+**Autores:** Tomas Cicchini, Matías Leizerovich y Candela Szischik
 
-Aplicación de redes recurrentes para la predicción de un intervalo dentro de una señal temporal.
+Aplicación de redes recurrentes para la predicción de un intervalo en una señal temporal.
