@@ -3,7 +3,7 @@ import copy
 
 # Imports de Keras
 from keras.models import Sequential
-from keras.layers import Dense, LSTM, SimpleRNN
+from keras.layers import Dense, LSTM, SimpleRNN, GRU, Bidirectional, Conv1D
 
 def rossler_attractor(a, b, c, dt, num_steps):
     x = np.zeros(num_steps)
