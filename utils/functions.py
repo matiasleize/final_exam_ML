@@ -104,3 +104,12 @@ def make_predictions(sequence, look_back, n_features, raw_seq_window, model = No
 
     return predicciones_adelante,valores_reales    
 
+def weighted_mean(predicciones_adelante_1, predicciones_adelante_2):
+    window_size = len(predicciones_adelante_1)
+
+    d1 = np.linspace(1,0,window_size)
+    d2 = np.linspace(0,1,window_size)
+
+    output = (d1*predicciones_adelante_1 + d2*predicciones_adelante_2) / (d1+d2)
+    
+    return output
