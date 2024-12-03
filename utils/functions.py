@@ -116,7 +116,7 @@ def weighted_mean(predicciones_adelante_1, predicciones_adelante_2):
 
 def MSE(datos_reales, datos_predichos):
     if len(datos_predichos.shape) > 1:
-        diff_datos = 1 - datos_predichos.mean(axis = 0) / datos_reales
+        diff_datos = 1 - datos_predichos.mean(axis = 1) / datos_reales
     elif len(datos_predichos.shape) == 1:
         diff_datos = 1 - datos_predichos / datos_reales
     else:
