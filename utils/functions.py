@@ -113,3 +113,15 @@ def weighted_mean(predicciones_adelante_1, predicciones_adelante_2):
     output = (d1*predicciones_adelante_1 + d2*predicciones_adelante_2) / (d1+d2)
     
     return output
+
+def MSE(datos_reales, datos_predichos):
+    if len(datos_predichos.shape) > 1:
+        diff_datos = 1 - datos_predichos.mean(axis = 0) / datos_reales
+    elif len(datos_predichos.shape) == 1:
+        diff_datos = 1 - datos_predichos / datos_reales
+    else:
+        diff_datos = 0
+        print('sos un boludo')
+    diff_datos = sum(abs(diff_datos)) / len(datos_reales)
+    
+    return diff_datos
